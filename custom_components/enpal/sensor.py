@@ -65,8 +65,13 @@ async def async_setup_entry(
             to_add.append(EnpalSensor(field, measurement, 'mdi:solar-power', 'Enpal Solar Production Power', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W'))
         if field == "Power.House.Total":
             to_add.append(EnpalSensor(field, measurement, 'mdi:home-lightning-bolt', 'Enpal Power House Total', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W'))
+        if field == "Power.House.Total.Fox":
+            to_add.append(EnpalSensor(field, measurement, 'mdi:home-lightning-bolt', 'Enpal Power House Total (Fox)', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W'))
         if field == "Power.External.Total":
             to_add.append(EnpalSensor(field, measurement, 'mdi:home-lightning-bolt', 'Enpal Power External Total', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W'))
+        if field == "Power.Grid.Export":
+            to_add.append(EnpalSensor(field, measurement, 'mdi:home-lightning-bolt', 'Enpal Power Grid Export', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W'))
+
         # Consum Total per Day
         if field == "Energy.Consumption.Total.Day":
             to_add.append(EnpalSensor(field, measurement, 'mdi:home-lightning-bolt', 'Enpal Energy Consumption', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'energy', 'kWh'))
@@ -100,6 +105,10 @@ async def async_setup_entry(
             to_add.append(EnpalSensor(field, measurement, 'mdi:lightning-bolt', 'Enpal Ampere Phase C', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'current', 'A'))
         if field == "Power.AC.Phase.C":
             to_add.append(EnpalSensor(field, measurement, 'mdi:lightning-bolt', 'Enpal Power Phase C', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W'))
+        if field == "Power.DC.String.1":
+            to_add.append(EnpalSensor(field, measurement, 'mdi:lightning-bolt', 'Enpal Power DC String 1', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W'))
+        if field == "Power.DC.String.2":
+            to_add.append(EnpalSensor(field, measurement, 'mdi:lightning-bolt', 'Enpal Power DC String 2', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W'))
 
         #Battery
         if field == "Power.Battery.Charge.Discharge":
