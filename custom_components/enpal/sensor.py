@@ -81,6 +81,10 @@ async def async_setup_entry(
             to_add.append(EnpalSensor(field, measurement, 'mdi:transmission-tower-export', 'Enpal Energy External Out Day', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'energy', 'kWh'))
         if field == "Energy.External.Total.In.Day":
             to_add.append(EnpalSensor(field, measurement, 'mdi:transmission-tower-import', 'Enpal Energy External In Day', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'energy', 'kWh'))
+        if field == "Energy.Grid.Export.Day":
+            to_add.append(EnpalSensor(field, measurement, 'mdi:home-lightning-bolt', 'Enpal Energy Grid Export Day', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'energy', 'kWh'))
+        if field == "Energy.Grid.Import.Day":
+            to_add.append(EnpalSensor(field, measurement, 'mdi:home-lightning-bolt', 'Enpal Energy Grid Import Day', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'energy', 'kWh'))
 
         # Solar Energy.Production.Total.Day
         if field == "Energy.Production.Total.Day":
@@ -107,8 +111,16 @@ async def async_setup_entry(
             to_add.append(EnpalSensor(field, measurement, 'mdi:lightning-bolt', 'Enpal Power Phase C', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W'))
         if field == "Power.DC.String.1":
             to_add.append(EnpalSensor(field, measurement, 'mdi:lightning-bolt', 'Enpal Power DC String 1', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W'))
+        if field == "Current.String.1":
+            to_add.append(EnpalSensor(field, measurement, 'mdi:lightning-bolt', 'Enpal Ampere String 1', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'current', 'A'))
+        if field == "Voltage.String.1":
+            to_add.append(EnpalSensor(field, measurement, 'mdi:lightning-bolt', 'Enpal Voltage String 1', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'voltage', 'V'))
         if field == "Power.DC.String.2":
             to_add.append(EnpalSensor(field, measurement, 'mdi:lightning-bolt', 'Enpal Power DC String 2', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W'))
+        if field == "Current.String.2":
+            to_add.append(EnpalSensor(field, measurement, 'mdi:lightning-bolt', 'Enpal Ampere String 2', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'current', 'A'))
+        if field == "Voltage.String.2":
+            to_add.append(EnpalSensor(field, measurement, 'mdi:lightning-bolt', 'Enpal Voltage String 2', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'voltage', 'V'))
 
         #Battery
         if field == "Power.Battery.Charge.Discharge":
