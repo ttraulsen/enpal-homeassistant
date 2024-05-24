@@ -210,11 +210,11 @@ class EnpalSensor(SensorEntity):
                 value = tables[0].records[0].values['_value']
 
             self._attr_native_value = round(float(value), 2)
-            if self.neg:
-                self._attr_native_value = -min(self._attr_native_value, 0.0)
+            if self.neg and self._attr_native_value < 0:
+                self._attr_native_value = -self._attr_native_value
                 _LOGGER.info(f'{self.field}: {round(float(value), 2)} / {self._attr_native_value} is negative')
-            if self.pos:
-                self._attr_native_value = max(self._attr_native_value, 0.0)
+            if self.pos and self._attr_native_value > 0:
+                self._attr_native_value = self._attr_native_value
                 _LOGGER.info(f'{self.field}: {round(float(value), 2)} / {self._attr_native_value} is positive')
             self._attr_device_class = self.enpal_device_class
             self._attr_native_unit_of_measurement	= self.unit
