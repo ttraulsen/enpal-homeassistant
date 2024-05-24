@@ -147,20 +147,20 @@ async def async_setup_entry(
 
         #Power/Battery to grid in/out
         if field == "Power.AC.Phase.A":
-            to_add.append(EnpalSensor(field + "_in", measurement, 'mdi:lightning-bolt', 'Enpal Power Phase A in', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', pos=True))
-            to_add.append(EnpalSensor(field + "_out", measurement, 'mdi:lightning-bolt', 'Enpal Power Phase A out', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', neg=True))
+            to_add.append(EnpalSensor(field, measurement, 'mdi:lightning-bolt', 'Enpal Power Phase A in', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', pos=True, unique_id_ext="_in"))
+            to_add.append(EnpalSensor(field, measurement, 'mdi:lightning-bolt', 'Enpal Power Phase A out', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', neg=True, unique_id_ext="_out"))
         if field == "Power.AC.Phase.B":
-            to_add.append(EnpalSensor(field + "_in", measurement, 'mdi:lightning-bolt', 'Enpal Power Phase B in', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', pos=True))
-            to_add.append(EnpalSensor(field + "_out", measurement, 'mdi:lightning-bolt', 'Enpal Power Phase B out', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', neg=True))
+            to_add.append(EnpalSensor(field, measurement, 'mdi:lightning-bolt', 'Enpal Power Phase B in', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', pos=True, unique_id_ext="_in"))
+            to_add.append(EnpalSensor(field, measurement, 'mdi:lightning-bolt', 'Enpal Power Phase B out', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', neg=True, unique_id_ext="_out"))
         if field == "Power.AC.Phase.C":
-            to_add.append(EnpalSensor(field + "_in", measurement, 'mdi:lightning-bolt', 'Enpal Power Phase C in', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', pos=True))
-            to_add.append(EnpalSensor(field + "_out", measurement, 'mdi:lightning-bolt', 'Enpal Power Phase C out', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', neg=True))
+            to_add.append(EnpalSensor(field, measurement, 'mdi:lightning-bolt', 'Enpal Power Phase C in', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', pos=True, unique_id_ext="_in"))
+            to_add.append(EnpalSensor(field, measurement, 'mdi:lightning-bolt', 'Enpal Power Phase C out', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', neg=True, unique_id_ext="_out"))
         if field == "Power.Grid.Export":
-            to_add.append(EnpalSensor(field + "_pure_out", measurement, 'mdi:home-lightning-bolt', 'Enpal Power Grid pure Export', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', pos=True))
-            to_add.append(EnpalSensor(field + "_pure_in", measurement, 'mdi:home-lightning-bolt', 'Enpal Power Grid pure Import', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', neg=True))
+            to_add.append(EnpalSensor(field, measurement, 'mdi:home-lightning-bolt', 'Enpal Power Grid pure Export', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', pos=True, unique_id_ext="_pure_in"))
+            to_add.append(EnpalSensor(field, measurement, 'mdi:home-lightning-bolt', 'Enpal Power Grid pure Import', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', neg=True, unique_id_ext="_pure_out"))
         if field == "Power.Battery.Charge.Discharge":
-            to_add.append(EnpalSensor(field + "_in", measurement, 'mdi:battery-charging', 'Enpal Battery Power in', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', pos=True))
-            to_add.append(EnpalSensor(field + "_out", measurement, 'mdi:battery-charging', 'Enpal Battery Power out', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', neg=True))
+            to_add.append(EnpalSensor(field, measurement, 'mdi:battery-charging', 'Enpal Battery Power in', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', pos=True, unique_id_ext="_in"))
+            to_add.append(EnpalSensor(field, measurement, 'mdi:battery-charging', 'Enpal Battery Power out', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', neg=True, unique_id_ext="_out"))
 
     entity_registry = async_get(hass)
     entries = async_entries_for_config_entry(
@@ -174,7 +174,7 @@ async def async_setup_entry(
 
 class EnpalSensor(SensorEntity):
 
-    def __init__(self, field: str, measurement: str, icon:str, name: str, ip: str, port: int, token: str, device_class: str, unit: str, neg:bool = False, pos:bool = False):
+    def __init__(self, field: str, measurement: str, icon:str, name: str, ip: str, port: int, token: str, device_class: str, unit: str, neg:bool = False, pos:bool = False, unique_id_ext: str = None):
         self.field = field
         self.measurement = measurement
         self.ip = ip
@@ -184,7 +184,7 @@ class EnpalSensor(SensorEntity):
         self.unit = unit
         self._attr_icon = icon
         self._attr_name = name
-        self._attr_unique_id = f'enpal_{measurement}_{field}'
+        self._attr_unique_id = f'enpal_{measurement}_{field}{unique_id_ext}'
         self._attr_extra_state_attributes = {}
         self.neg = neg
         self.pos = pos
@@ -210,8 +210,6 @@ class EnpalSensor(SensorEntity):
                 value = tables[0].records[0].values['_value']
 
             self._attr_native_value = round(float(value), 2)
-            if self.pos or self.neg:
-                _LOGGER.info(f'{self.field}: {round(float(value), 2)} / {self._attr_native_value} pos={self.pos}; neg={self.neg}')
             if self.neg and self._attr_native_value > 0:
                 self._attr_native_value = 0.0
                 _LOGGER.info(f'{self.field}: {round(float(value), 2)} / {self._attr_native_value} is negative')
