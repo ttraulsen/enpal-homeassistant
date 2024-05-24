@@ -145,23 +145,22 @@ async def async_setup_entry(
         if field == "Energy.Wallbox.Connector.1.Charged.Total":
             to_add.append(EnpalSensor(field, measurement, 'mdi:ev-station', 'Wallbox Charging Total', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'energy', 'Wh'))
 
-        #Power to grid in/out
+        #Power/Battery to grid in/out
         if field == "Power.AC.Phase.A":
             to_add.append(EnpalSensor(field + "_in", measurement, 'mdi:lightning-bolt', 'Enpal Power Phase A in', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', pos=True))
-        if field == "Power.AC.Phase.B":
-            to_add.append(EnpalSensor(field + "_in", measurement, 'mdi:lightning-bolt', 'Enpal Power Phase B in', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', pos=True))
-        if field == "Power.AC.Phase.C":
-            to_add.append(EnpalSensor(field + "_in", measurement, 'mdi:lightning-bolt', 'Enpal Power Phase C in', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', pos=True))
-        if field == "Power.AC.Phase.A":
             to_add.append(EnpalSensor(field + "_out", measurement, 'mdi:lightning-bolt', 'Enpal Power Phase A out', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', neg=True))
         if field == "Power.AC.Phase.B":
+            to_add.append(EnpalSensor(field + "_in", measurement, 'mdi:lightning-bolt', 'Enpal Power Phase B in', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', pos=True))
             to_add.append(EnpalSensor(field + "_out", measurement, 'mdi:lightning-bolt', 'Enpal Power Phase B out', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', neg=True))
         if field == "Power.AC.Phase.C":
+            to_add.append(EnpalSensor(field + "_in", measurement, 'mdi:lightning-bolt', 'Enpal Power Phase C in', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', pos=True))
             to_add.append(EnpalSensor(field + "_out", measurement, 'mdi:lightning-bolt', 'Enpal Power Phase C out', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', neg=True))
         if field == "Power.Grid.Export":
             to_add.append(EnpalSensor(field + "_pure_out", measurement, 'mdi:home-lightning-bolt', 'Enpal Power Grid pure Export', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', pos=True))
-        if field == "Power.Grid.Export":
             to_add.append(EnpalSensor(field + "_pure_in", measurement, 'mdi:home-lightning-bolt', 'Enpal Power Grid pure Import', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', neg=True))
+        if field == "Power.Battery.Charge.Discharge":
+            to_add.append(EnpalSensor(field + "_in", measurement, 'mdi:battery-charging', 'Enpal Battery Power in', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', pos=True))
+            to_add.append(EnpalSensor(field + "_out", measurement, 'mdi:battery-charging', 'Enpal Battery Power out', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W', neg=True))
 
     entity_registry = async_get(hass)
     entries = async_entries_for_config_entry(
