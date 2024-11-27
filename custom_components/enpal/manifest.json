@@ -1,11 +1,11 @@
 {
   "domain": "enpal",
   "name": "Enpal",
-  "documentation": "https://github.com/dbe-gmbh/enpal-homeassistant",
+  "documentation": "https://github.com/ttraulsen/enpal-homeassistant",
   "dependencies": [],
   "codeowners": ["Skipperro", "gickowtf", "docspy"],
   "requirements": [],
   "iot_class": "local_polling",
   "config_flow": true,
-  "version": "0.2.7"
+  "version": "0.2.9"
 }
