@@ -65,6 +65,8 @@ async def async_setup_entry(
             to_add.append(EnpalSensor(field, measurement, 'mdi:solar-power', 'Enpal Solar Production Power', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W'))
         if field == "Power.House.Total":
             to_add.append(EnpalSensor(field, measurement, 'mdi:home-lightning-bolt', 'Enpal Power House Total', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W'))
+        if field == "Power.Consumption.Total":
+            to_add.append(EnpalSensor(field, measurement, 'mdi:home-lightning-bolt', 'Enpal Power Consumption Total', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W'))
         if field == "Power.House.Total.Fox":
             to_add.append(EnpalSensor(field, measurement, 'mdi:home-lightning-bolt', 'Enpal Power House Total (Fox)', config['enpal_host_ip'], config['enpal_host_port'], config['enpal_token'], 'power', 'W'))
         # unavailable for me
